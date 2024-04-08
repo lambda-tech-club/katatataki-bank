@@ -1,8 +1,9 @@
+import sha256 from 'crypto-js/sha256';
 import {kv} from "@vercel/kv";
 import {NextRequest, NextResponse} from "next/server";
 
 function hashCouponCode(couponCode: string, watchWord: string) : string {
-    return couponCode + watchWord;
+    return couponCode + sha256(`${watchWord}:${process.env.SALT}`);
 }
 
 export async function POST(
@@ -63,7 +64,7 @@ export async function PUT(
 
     if (!!found['usedAt']) {
         return NextResponse.json({
-            message: "利用済み"
+            message: "既に利用されています"
         }, { status: 200 })
     }
 
@@ -71,7 +72,7 @@ export async function PUT(
     const foundExpiredAt = found['expiredAt']
     if (!!foundExpiredAt && now > found['expiredAt']) {
         return NextResponse.json({
-            message: "利用期限切れ"
+            message: "利用期限が切れています"
         }, { status: 200 })
     }
 
@@ -92,6 +93,6 @@ export async function PUT(
     }
 
     return NextResponse.json({
-        'message': "ご利用ありがとうございます"
+        'message': "正常に券が利用されました"
     }, { status: 200 })
 }

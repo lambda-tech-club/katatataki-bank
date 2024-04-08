@@ -1,16 +1,21 @@
 'use client'
 import React from 'react';
 import {FormEvent, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function All() {
     const [createMessage, setCreateMessage] = useState("")
-    const [updateMessage, setUpdateMessage] = useState("")
     const [submitCreateDisabled, setSubmitCreateDisabled] = useState(false)
-    const [submitUpdateDisabled, setSubmitUpdateDisabled] = useState(false)
 
     async function onSubmitCreate(event: FormEvent<HTMLFormElement>) {
         setSubmitCreateDisabled(true)
-        setCreateMessage("処理中")
+        setCreateMessage(<div className="card text-bg-dark">
+            <div className="card-body">
+                <div className="spinner-border text-light" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>)
 
         event.preventDefault()
 
@@ -24,67 +29,41 @@ export default function All() {
             case 200:
                 const data = await response.json()
                 const couponCode = data['couponCode']
-                setCreateMessage("あなたのコードは:" + `${couponCode.substring(0, 4)}-${couponCode.substring(4, 8)}-${couponCode.substring(8, 12)}`)
+                setCreateMessage(<div className="card text-bg-dark">
+                <div className="card-body">
+                    {"シリアルコード:" + `${couponCode.substring(0, 4)}-${couponCode.substring(4, 8)}-${couponCode.substring(8, 12)}`}
+                </div>
+            </div>)
                 break
             default:
-                setCreateMessage("すまん、多分なんならかの理由で失敗した")
+                setCreateMessage(<div className="card text-bg-warning">
+                <div className="card-body">
+                    何らかの理由で失敗しました
+                </div>
+            </div>)
         }
         setSubmitCreateDisabled(false)
     }
 
-    async function onSubmitUpdate(event: FormEvent<HTMLFormElement>) {
-        setSubmitUpdateDisabled(true)
-        setUpdateMessage("処理中")
-
-        event.preventDefault()
-
-        const formData = new FormData(event.currentTarget)
-        const response = await fetch('/api/coupons', {
-            method: 'PUT',
-            body: JSON.stringify(Object.fromEntries(formData)),
-        })
-
-        const data = await response.json()
-        switch (response.status) {
-            case 200:
-                setUpdateMessage(data['message'])
-                break
-            case 400:
-                setUpdateMessage("知らない利用番号ですね")
-                break
-            case 403:
-                setUpdateMessage("不正はよくないですね")
-                break
-            default:
-                setCreateMessage("すまん、多分なんならかの理由で失敗した")
-        }
-        setSubmitUpdateDisabled(false)
-    }
-
     return (
-        <div>
-            <h1>作成する</h1>
-            <form onSubmit={onSubmitCreate}>
-                <label htmlFor="watchWord">合言葉</label>
-                <input type="number" id="watchWord" name="watchWord" required minLength={5} maxLength={5}/>
-                <label htmlFor="expiredAt">有効期限</label>
-                <input type="date" id="expiredAt" name="expiredAt"/>
-                <label htmlFor="number">回数</label>
-                <input type="number" id="number" name="number" required minLength={1} maxLength={10}/>
-                <button type="submit" disabled={submitCreateDisabled}>Submit</button>
+        <div className="container">
+            <h1>券発行フォーム</h1>
+            <form className="needs-validation" onSubmit={onSubmitCreate}>
+                <div className="form-floating mb-3">
+                    <input className="form-control form-control-lg" type="number" id="number" name="number" required minLength={1} maxLength={10}/>
+                    <label className="form-label" htmlFor="number">回数</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input className="form-control form-control-lg" type="date" id="expiredAt" name="expiredAt"/>
+                    <label className="form-label" htmlFor="expiredAt">有効期限</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input className="form-control form-control-lg" type="number" id="watchWord" name="watchWord" required minLength={5} maxLength={5}/>
+                    <label className="form-label" htmlFor="watchWord">合言葉</label>
+                </div>
+                <button className="btn btn-primary btn-lg mb-3" type="submit" disabled={submitCreateDisabled}>発行する</button>
             </form>
-            {<span>{createMessage}</span>}
-
-            <h1>利用する</h1>
-            {/* 利用する方*/}
-            <form onSubmit={onSubmitUpdate}>
-                <label htmlFor="couponCode">利用番号</label>
-                <input type="number" id="couponCode" name="couponCode" required minLength={12} maxLength={12}/>
-                <label htmlFor="watchWord">合言葉</label>
-                <input type="number" id="watchWord" name="watchWord" required minLength={5} maxLength={5}/>
-                <button type="submit" disabled={submitUpdateDisabled}>Submit</button>
-            </form>
-            {<span>{updateMessage}</span>}
+            {createMessage}
         </div>
     )
 }
