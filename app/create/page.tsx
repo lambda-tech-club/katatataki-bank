@@ -31,7 +31,7 @@ export default function All() {
                 const couponCode = data['couponCode']
                 setCreateMessage(<div className="card text-bg-dark">
                 <div className="card-body">
-                    {"シリアルコード:" + `${couponCode.substring(0, 4)}-${couponCode.substring(4, 8)}-${couponCode.substring(8, 12)}`}
+                    {"シリアル番号:" + `${couponCode.substring(0, 4)}-${couponCode.substring(4, 8)}-${couponCode.substring(8, 12)}`}
                 </div>
             </div>)
                 break

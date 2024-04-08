@@ -63,7 +63,7 @@ export default function All() {
             <h1>券を利用する</h1>
             <form onSubmit={onSubmitUpdate}>
                 <div className="form-floating mb-3">
-                    <input className="form-control form-control-lg" type="number" id="couponCode" name="number" required minLength={12} maxLength={12}/>
+                    <input className="form-control form-control-lg" type="number" id="couponCode" name="couponCode" required minLength={12} maxLength={12}/>
                     <label className="form-label" htmlFor="couponCode">シリアル番号</label>
                 </div>
                 <div className="form-floating mb-3">
