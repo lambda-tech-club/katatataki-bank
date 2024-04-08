@@ -6,6 +6,8 @@ specifiers:
   '@types/node': 18.15.11
   '@types/react': 18.0.37
   '@types/react-dom': 18.0.11
+  '@upstash/ratelimit': ^1.0.3
+  '@vercel/edge': ^1.1.1
   '@vercel/kv': 0.2.1
   autoprefixer: 10.4.14
   bootstrap: ^5.3.0
@@ -24,6 +26,8 @@ dependencies:
   '@types/node': 18.15.11
   '@types/react': 18.0.37
   '@types/react-dom': 18.0.11
+  '@upstash/ratelimit': 1.0.3
+  '@vercel/edge': 1.1.1
   '@vercel/kv': 0.2.1
   autoprefixer: 10.4.14_postcss@8.4.22
   bootstrap: 5.3.3
@@ -376,12 +380,35 @@ packages:
       eslint-visitor-keys: 3.4.0
     dev: false
 
+  /@upstash/core-analytics/0.0.7:
+    resolution: {integrity: sha512-lC2j5efqb1haX/fpTGaPUx1rue1WUkOZBVHDzCB7eMIVsRdFFp4xiHtyH/G9omiR1zj39fU5SCTWFiKJH3KOpw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@upstash/redis': 1.29.0
+    dev: false
+
+  /@upstash/ratelimit/1.0.3:
+    resolution: {integrity: sha512-uaws/6Ar28TICm61wfIbL4Ba91WYtIfl6HMj0PNJ0H/nm0SSXwVbCxPEiX9aXa41gMlVWujaJcOreqIuO8/mqg==}
+    dependencies:
+      '@upstash/core-analytics': 0.0.7
+    dev: false
+
   /@upstash/redis/1.20.6:
     resolution: {integrity: sha512-q1izaYEUsq/WiXNOjf4oOjFZe8fIeBSZN8d5cEyOD4nem+zxc4jccieorQQrNlEahKPE1ZYLzVEkMODRUfch2g==}
     dependencies:
       isomorphic-fetch: 3.0.0
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /@upstash/redis/1.29.0:
+    resolution: {integrity: sha512-kbO5fgMAeUzErnA/SOtaSbAa0dguYhhBT4MZHJ1O8gVl4iK754aC9+rIYY5hsp4nlxeCGfnIDkWpof991c9jjA==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: false
+
+  /@vercel/edge/1.1.1:
+    resolution: {integrity: sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==}
     dev: false
 
   /@vercel/kv/0.2.1:
