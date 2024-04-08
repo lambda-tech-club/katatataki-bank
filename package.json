@@ -14,8 +14,12 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
+    "@upstash/ratelimit": "^1.0.3",
+    "@vercel/edge": "^1.1.1",
     "@vercel/kv": "0.2.1",
     "autoprefixer": "10.4.14",
+    "bootstrap": "^5.3.0",
+    "crypto-js": "^4.2.0",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "next": "13.4.13",
@@ -26,6 +30,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/ms": "^0.7.31",
     "turbo": "^1.9.3"
   }

@@ -1,12 +1,17 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/crypto-js': ^4.2.2
   '@types/ms': ^0.7.31
   '@types/node': 18.15.11
   '@types/react': 18.0.37
   '@types/react-dom': 18.0.11
+  '@upstash/ratelimit': ^1.0.3
+  '@vercel/edge': ^1.1.1
   '@vercel/kv': 0.2.1
   autoprefixer: 10.4.14
+  bootstrap: ^5.3.0
+  crypto-js: ^4.2.0
   eslint: 8.38.0
   eslint-config-next: 13.3.0
   next: 13.4.13
@@ -21,8 +26,12 @@ dependencies:
   '@types/node': 18.15.11
   '@types/react': 18.0.37
   '@types/react-dom': 18.0.11
+  '@upstash/ratelimit': 1.0.3
+  '@vercel/edge': 1.1.1
   '@vercel/kv': 0.2.1
   autoprefixer: 10.4.14_postcss@8.4.22
+  bootstrap: 5.3.3
+  crypto-js: 4.2.0
   eslint: 8.38.0
   eslint-config-next: 13.3.0_voubu7prgxjfsfbgx5d4sqnwiy
   next: 13.4.13_biqbaboplfbrettd7655fr4n2y
@@ -33,6 +42,7 @@ dependencies:
   typescript: 5.0.4
 
 devDependencies:
+  '@types/crypto-js': 4.2.2
   '@types/ms': 0.7.31
   turbo: 1.9.3
 
@@ -270,6 +280,10 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@types/crypto-js/4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
+    dev: true
+
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
@@ -366,12 +380,35 @@ packages:
       eslint-visitor-keys: 3.4.0
     dev: false
 
+  /@upstash/core-analytics/0.0.7:
+    resolution: {integrity: sha512-lC2j5efqb1haX/fpTGaPUx1rue1WUkOZBVHDzCB7eMIVsRdFFp4xiHtyH/G9omiR1zj39fU5SCTWFiKJH3KOpw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@upstash/redis': 1.29.0
+    dev: false
+
+  /@upstash/ratelimit/1.0.3:
+    resolution: {integrity: sha512-uaws/6Ar28TICm61wfIbL4Ba91WYtIfl6HMj0PNJ0H/nm0SSXwVbCxPEiX9aXa41gMlVWujaJcOreqIuO8/mqg==}
+    dependencies:
+      '@upstash/core-analytics': 0.0.7
+    dev: false
+
   /@upstash/redis/1.20.6:
     resolution: {integrity: sha512-q1izaYEUsq/WiXNOjf4oOjFZe8fIeBSZN8d5cEyOD4nem+zxc4jccieorQQrNlEahKPE1ZYLzVEkMODRUfch2g==}
     dependencies:
       isomorphic-fetch: 3.0.0
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /@upstash/redis/1.29.0:
+    resolution: {integrity: sha512-kbO5fgMAeUzErnA/SOtaSbAa0dguYhhBT4MZHJ1O8gVl4iK754aC9+rIYY5hsp4nlxeCGfnIDkWpof991c9jjA==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: false
+
+  /@vercel/edge/1.1.1:
+    resolution: {integrity: sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==}
     dev: false
 
   /@vercel/kv/0.2.1:
@@ -547,6 +584,12 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /bootstrap/5.3.3:
+    resolution: {integrity: sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.8
+    dev: false
+
   /bplist-parser/0.2.0:
     resolution: {integrity: sha512-z0M+byMThzQmD9NILRniCUXYsYpjwnlO8N5uCFaCqIOpqRsJCrQL9NK3JsD67CN5a08nF5oIL2bD6loTdHOuKw==}
     engines: {node: '>= 5.10.0'}
@@ -668,6 +711,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: false
+
+  /crypto-js/4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /cssesc/3.0.0:
