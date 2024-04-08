@@ -4,7 +4,7 @@ import {FormEvent, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function All() {
-    const [createMessage, setCreateMessage] = useState("")
+    const [createMessage, setCreateMessage] = useState<JSX.Element>(<></>)
     const [submitCreateDisabled, setSubmitCreateDisabled] = useState(false)
 
     async function onSubmitCreate(event: FormEvent<HTMLFormElement>) {
