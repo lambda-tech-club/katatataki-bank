@@ -1,11 +1,23 @@
 'use client'
 import React from 'react';
-import {FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Update() {
     const [updateMessage, setUpdateMessage] = useState<JSX.Element>(<></>)
     const [submitUpdateDisabled, setSubmitUpdateDisabled] = useState(false)
+    const [serialNumber, setSerialNumber] = useState("")
+
+    function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
+        const value = Array.from(event.target.value.replace(/[^0-9]/g, ''))
+        const splitValue = value.reduce((acc: string[], curr, index) => {
+            if (index % 4 === 0) {
+                return [...acc, value.slice(index, index + 4).join('')];
+            }
+            return acc;
+        }, [] as string[])
+        if (value.length <= 12) setSerialNumber(splitValue.join('-'));
+    }
 
     async function onSubmitUpdate(event: FormEvent<HTMLFormElement>) {
         setSubmitUpdateDisabled(true)
@@ -20,6 +32,7 @@ export default function Update() {
         event.preventDefault()
 
         const formData = new FormData(event.currentTarget)
+        formData.set("serialNumber", serialNumber.replace(/[^0-9]/g, ''))
         const response = await fetch('/api/coupons', {
             method: 'PUT',
             body: JSON.stringify(Object.fromEntries(formData)),
@@ -47,8 +60,8 @@ export default function Update() {
             <h1>券を利用する</h1>
             <form onSubmit={onSubmitUpdate}>
                 <div className="form-floating mb-3">
-                    <input className="form-control form-control-lg" type="number" id="serialNumber" name="serialNumber" required minLength={12} maxLength={12}/>
-                    <label className="form-label" htmlFor="serialNumber">シリアル番号(ハイフンなし)</label>
+                    <input value={serialNumber} onChange={handleOnChange} className="form-control form-control-lg" type="text" id="serialNumber" name="serialNumber" required/>
+                    <label className="form-label" htmlFor="serialNumber">シリアル番号</label>
                 </div>
                 <div className="form-floating mb-3">
                     <input className="form-control form-control-lg" type="number" id="passCode" name="passCode" required minLength={5} maxLength={5}/>
