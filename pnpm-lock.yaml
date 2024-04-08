@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/crypto-js': ^4.2.2
   '@types/ms': ^0.7.31
   '@types/node': 18.15.11
   '@types/react': 18.0.37
@@ -37,6 +38,7 @@ dependencies:
   typescript: 5.0.4
 
 devDependencies:
+  '@types/crypto-js': 4.2.2
   '@types/ms': 0.7.31
   turbo: 1.9.3
 
@@ -273,6 +275,10 @@ packages:
     dependencies:
       tslib: 2.5.0
     dev: false
+
+  /@types/crypto-js/4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
+    dev: true
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
