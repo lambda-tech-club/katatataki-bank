@@ -1,7 +1,7 @@
 ---
-name: Vercel KV for Redis Next.js Starter
+name: 肩叩き銀行
 slug: kv-redis-starter
-description: Simple Next.js template that uses Vercel KV for Redis to track pageviews.
+description: 肩叩き券を発行する機関
 framework: Next.js
 useCase: Starter
 css: Tailwind

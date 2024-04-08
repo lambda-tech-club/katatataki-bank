@@ -3,7 +3,7 @@ import React from 'react';
 import {FormEvent, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function All() {
+export default function Create() {
     const [createMessage, setCreateMessage] = useState<JSX.Element>(<></>)
     const [submitCreateDisabled, setSubmitCreateDisabled] = useState(false)
 
@@ -25,22 +25,22 @@ export default function All() {
             body: JSON.stringify(Object.fromEntries(formData)),
         })
 
+        const data = await response.json()
         switch (response.status) {
             case 200:
-                const data = await response.json()
-                const couponCode = data['couponCode']
-                setCreateMessage(<div className="card text-bg-dark">
-                <div className="card-body">
-                    {"シリアル番号:" + `${couponCode.substring(0, 4)}-${couponCode.substring(4, 8)}-${couponCode.substring(8, 12)}`}
-                </div>
-            </div>)
+                const serialNumber = data['serialNumber']
+                setCreateMessage(<div className="card text-bg-success">
+                    <div className="card-body">
+                        {"シリアル番号: " + `${serialNumber.substring(0, 4)}-${serialNumber.substring(4, 8)}-${serialNumber.substring(8, 12)}`}
+                    </div>
+                </div>)
                 break
             default:
-                setCreateMessage(<div className="card text-bg-warning">
-                <div className="card-body">
-                    何らかの理由で失敗しました
-                </div>
-            </div>)
+                setCreateMessage(<div className="card text-bg-danger">
+                    <div className="card-body">
+                        {data['errorMessage']}
+                    </div>
+                </div>)
         }
         setSubmitCreateDisabled(false)
     }
@@ -58,8 +58,8 @@ export default function All() {
                     <label className="form-label" htmlFor="expiredAt">有効期限</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input className="form-control form-control-lg" type="number" id="watchWord" name="watchWord" required minLength={5} maxLength={5}/>
-                    <label className="form-label" htmlFor="watchWord">合言葉</label>
+                    <input className="form-control form-control-lg" type="number" id="passCode" name="passCode" required minLength={5} maxLength={5}/>
+                    <label className="form-label" htmlFor="passCode">パスコード</label>
                 </div>
                 <button className="btn btn-primary btn-lg mb-3" type="submit" disabled={submitCreateDisabled}>発行する</button>
             </form>
