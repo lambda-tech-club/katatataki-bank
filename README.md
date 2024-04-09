@@ -13,13 +13,25 @@ relatedTemplates:
   - postgres-starter
 ---
 
-# Vercel KV for Redis Next.js Starter
+# Katatataki Bank
 
-Simple Next.js template that uses [Vercel KV for Redis](https://vercel.com/kv) to track pageviews.
+肩たたき券の発行と管理を行うシステム
 
 ## Demo
 
-https://kv-redis-starter.vercel.app/
+動画: WIP
+
+### 肩たたき券発行フォーム
+
+```
+https:// katatataki-bank.vercel.app/create
+```
+
+### 肩たたき券検証フォーム
+
+```
+https:// katatataki-bank.vercel.app/update
+```
 
 ## How to Use
 
