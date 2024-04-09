@@ -90,7 +90,7 @@ export async function PUT(
         }, { status: 400 })
     }
 
-    const found =JSON.parse(JSON.stringify(await kv.get(serialNumber)))
+    const found = JSON.parse(JSON.stringify(await kv.get(serialNumber)))
     if (!found) {
         return NextResponse.json({
             'errorMessage': "無効なシリアル番号です"
@@ -133,6 +133,6 @@ export async function PUT(
     }
 
     return NextResponse.json({
-        'message': "券が正常に利用されました"
+        'message': `${found['number']}回券が正常に利用されました`
     }, { status: 200 })
 }
