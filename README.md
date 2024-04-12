@@ -1,25 +1,10 @@
----
-name: 肩叩き銀行
-slug: kv-redis-starter
-description: 肩叩き券を発行する機関
-framework: Next.js
-useCase: Starter
-css: Tailwind
-database: Vercel KV
-deployUrl: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fstorage%2Fkv-redis-starter&project-name=kv-redis-starter&repository-name=kv-redis-starter&demo-title=Vercel%20KV%20for%20Redis%20Next.js%20Starter&demo-description=Simple%20Next.js%20template%20that%20uses%20Vercel%20KV%20for%20Redis%20to%20track%20pageviews.&demo-url=https%3A%2F%2Fkv-redis-starter.vercel.app%2F&demo-image=https%3A%2F%2Fkv-redis-starter.vercel.app%2Fopengraph-image.png&stores=%5B%7B"type"%3A"kv"%7D%5D
-demoUrl: https://kv-redis-starter.vercel.app/
-relatedTemplates:
-  - blob-starter
-  - postgres-starter
----
-
 # Katatataki Bank
 
 肩たたき券の発行と管理を行うシステム
 
 ## Demo
 
-動画: WIP
+動画: [Youtube](https://youtu.be/erAeIJD5qLY?si=qh6QFKTZPkJMyeBp)
 
 ### 肩たたき券発行フォーム
 
