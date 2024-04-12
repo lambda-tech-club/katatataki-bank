@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import { ChangeEvent, FormEvent, useState } from "react";
+import luhn from "luhn-js";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Update() {
@@ -31,8 +32,21 @@ export default function Update() {
 
         event.preventDefault()
 
+        const serialNumberStr= serialNumber.replace(/[^0-9]/g, '')
+
+        if(!luhn.isValid(serialNumberStr)) {
+            setUpdateMessage(<div className="card text-bg-danger">
+                <div className="card-body">
+                    正しいシリアル番号を入力してください
+                </div>
+            </div>)
+            setSubmitUpdateDisabled(false)
+            return
+        }
+
         const formData = new FormData(event.currentTarget)
-        formData.set("serialNumber", serialNumber.replace(/[^0-9]/g, ''))
+        formData.set("serialNumber", serialNumberStr)
+
         const response = await fetch('/api/coupons', {
             method: 'PUT',
             body: JSON.stringify(Object.fromEntries(formData)),

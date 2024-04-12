@@ -1,6 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import {kv} from "@vercel/kv";
 import {NextRequest, NextResponse} from "next/server";
+import luhn from "luhn-js";
 
 function hashSerialNumber(serialNumber: string, passCode: string) : string {
     return serialNumber + sha256(`${passCode}:${process.env.SALT}`);
@@ -8,7 +9,7 @@ function hashSerialNumber(serialNumber: string, passCode: string) : string {
 
 function generateId() {
     let key = '';
-    const length = 12;
+    const length = 11;
     const characters = '0123456789';
     const charactersLength = characters.length;
     let counter = 0;
@@ -16,6 +17,7 @@ function generateId() {
         key += characters.charAt(Math.floor(Math.random() * charactersLength));
         counter += 1;
     }
+    key = luhn.generate(key);
     return key;
 }
 
