@@ -45,7 +45,7 @@ export default function Create() {
                         </div>
                     </div>
                 </div>)
-                setSvgQrCode(renderSVG(new URL(`/update?serial=${readableSerialNumber}`, location.href).href))
+                setSvgQrCode(renderSVG(new URL(`/update?sn=${readableSerialNumber}`, location.href).href))
                 break
             default:
                 setCreateMessage(<div className="card text-bg-danger">

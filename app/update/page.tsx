@@ -9,7 +9,7 @@ export default function Update() {
     const [serialNumber, setSerialNumber] = useState("")
 
     useEffect(() => {
-        setSerialNumber(new URL(location.href).searchParams.get('serial') ?? '')
+        setSerialNumber(new URL(location.href).searchParams.get('sn') ?? '')
     }, [])
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
