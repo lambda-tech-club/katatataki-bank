@@ -1,12 +1,16 @@
 'use client'
 import React from 'react';
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Update() {
     const [updateMessage, setUpdateMessage] = useState<JSX.Element>(<></>)
     const [submitUpdateDisabled, setSubmitUpdateDisabled] = useState(false)
     const [serialNumber, setSerialNumber] = useState("")
+
+    useEffect(() => {
+        setSerialNumber(new URL(location.href).searchParams.get('serial') ?? '')
+    }, [])
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
         const value = Array.from(event.target.value.replace(/[^0-9]/g, ''))
