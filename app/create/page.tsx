@@ -35,7 +35,7 @@ export default function Create() {
                 const readableSerialNumber = `${serialNumber.substring(0, 4)}-${serialNumber.substring(4, 8)}-${serialNumber.substring(8, 12)}`
                 setCreateMessage(<div className="card text-bg-success">
                     <div className="card-body">
-                        <div className="flex justify-around items-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-2">
                             <div>
                                 {"シリアル番号: " + readableSerialNumber}
                             </div>
