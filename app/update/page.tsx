@@ -2,15 +2,12 @@
 import React from 'react';
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useSearchParams } from 'next/navigation'
 
 export default function Update() {
     const [updateMessage, setUpdateMessage] = useState<JSX.Element>(<></>)
     const [submitUpdateDisabled, setSubmitUpdateDisabled] = useState(false)
-    const [serialNumber, setSerialNumber] = useState("")
-
-    useEffect(() => {
-        setSerialNumber(new URL(location.href).searchParams.get('sn') ?? '')
-    }, [])
+    const [serialNumber, setSerialNumber] = useState(useSearchParams().get('sn') ?? '')
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
         const value = Array.from(event.target.value.replace(/[^0-9]/g, ''))
