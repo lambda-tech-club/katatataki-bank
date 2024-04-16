@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormEvent, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { renderSVG } from 'uqr'
