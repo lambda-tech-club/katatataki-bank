@@ -7,7 +7,6 @@ import { renderSVG } from 'uqr'
 export default function Create() {
     const [createMessage, setCreateMessage] = useState<JSX.Element>(<></>)
     const [submitCreateDisabled, setSubmitCreateDisabled] = useState(false)
-    const [isShownQr, setIsShownQr] = useState(false)
     const [svgQrCode, setSvgQrCode] = useState<string | null>(null)
 
     async function onSubmitCreate(event: FormEvent<HTMLFormElement>) {
