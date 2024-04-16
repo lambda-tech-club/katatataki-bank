@@ -60,7 +60,7 @@ export default function Update() {
     }
 
     return (
-        <div className="container">
+        <div className="container mt-[30%]">
             <h1>券を利用する</h1>
             <form onSubmit={onSubmitUpdate}>
                 <div className="form-floating mb-3">

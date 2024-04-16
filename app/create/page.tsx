@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
-import {FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { renderSVG } from 'uqr'
 
@@ -33,19 +33,16 @@ export default function Create() {
             case 200:
                 const serialNumber = data['serialNumber']
                 const readableSerialNumber = `${serialNumber.substring(0, 4)}-${serialNumber.substring(4, 8)}-${serialNumber.substring(8, 12)}`
+
+                const svgQrCode = renderSVG(new URL(`/update?sn=${readableSerialNumber}`, location.href).href)
+                setSvgQrCode(svgQrCode)
+
                 setCreateMessage(<div className="card text-bg-success">
                     <div className="card-body">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-2">
-                            <div>
-                                {"シリアル番号: " + readableSerialNumber}
-                            </div>
-                            <div>
-                                <button onClick={() => setIsShownQr(true)} className="underline hover:no-underline">QRコード表示</button>
-                            </div>
-                        </div>
+                        {"シリアル番号: " + readableSerialNumber}
                     </div>
                 </div>)
-                setSvgQrCode(renderSVG(new URL(`/update?sn=${readableSerialNumber}`, location.href).href))
+
                 break
             default:
                 setCreateMessage(<div className="card text-bg-danger">
@@ -57,10 +54,7 @@ export default function Create() {
         setSubmitCreateDisabled(false)
     }
 
-    const downloadQrCode = async () => {
-        if (!svgQrCode) {
-            return
-        }
+    const downloadQrCode = async (svgQrCode: string) => {
         // SVG の URL を生成
         const svgQrcodeUrl = URL.createObjectURL(new Blob([svgQrCode], {
             type: 'image/svg+xml'
@@ -85,7 +79,7 @@ export default function Create() {
         const ctx = canvas.getContext('2d')
         ctx?.drawImage(svgQrcodeImage, 0, 0)
         const targetUrl = canvas.toDataURL('image/png')
-        
+
         // ダウンロード
         const downloadLink = document.createElement('a')
         downloadLink.href = targetUrl
@@ -99,37 +93,34 @@ export default function Create() {
     }
     return (
         <>
-            {
-                isShownQr && svgQrCode && <div className="fixed w-full h-[100dvh] top-0 left-0 bg-[#000a] grid justify-center items-center z-10">
-                    <div>
-                        <div className="bg-white p-2 border rounded-lg">
-                            <div dangerouslySetInnerHTML={{__html: svgQrCode}} className="w-32 h-32" />
+            <div className="flex items-center h-[100dvh]">
+                <div className="container">
+                    <h1>券発行フォーム</h1>
+                    <form className="needs-validation" onSubmit={onSubmitCreate}>
+                        <div className="form-floating mb-3">
+                            <input className="form-control form-control-lg" type="number" id="number" name="number" required minLength={1} maxLength={10} />
+                            <label className="form-label" htmlFor="number">回数</label>
                         </div>
-                        <div className="flex justify-between">
-                            <button onClick={() => setIsShownQr(false)} className="text-white underline hover:no-underline">閉じる</button>
-                            <button onClick={() => downloadQrCode()} className="text-white underline hover:no-underline">ダウンロード</button>
+                        <div className="form-floating mb-3">
+                            <input className="form-control form-control-lg" type="date" id="expiredAt" name="expiredAt" />
+                            <label className="form-label" htmlFor="expiredAt">有効期限</label>
                         </div>
-                    </div>
+                        <div className="form-floating mb-3">
+                            <input className="form-control form-control-lg" type="number" id="passCode" name="passCode" required minLength={5} maxLength={5} />
+                            <label className="form-label" htmlFor="passCode">パスコード</label>
+                        </div>
+                        <button className="btn btn-primary btn-lg mb-3" type="submit" disabled={submitCreateDisabled}>発行する</button>
+                    </form>
+                    {createMessage}
+                    {
+                        svgQrCode && <div className="grid grid-cols-1 md:grid-cols-2 place-items-center my-2 gap-2">
+                            <div dangerouslySetInnerHTML={{ __html: svgQrCode }} className="w-32 h-32" />
+                            <button onClick={() => downloadQrCode(svgQrCode)} className="btn btn-primary">
+                                QRコードをダウンロード
+                            </button>
+                        </div>
+                    }
                 </div>
-            }
-            <div className="container">
-                <h1>券発行フォーム</h1>
-                <form className="needs-validation" onSubmit={onSubmitCreate}>
-                    <div className="form-floating mb-3">
-                        <input className="form-control form-control-lg" type="number" id="number" name="number" required minLength={1} maxLength={10}/>
-                        <label className="form-label" htmlFor="number">回数</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input className="form-control form-control-lg" type="date" id="expiredAt" name="expiredAt"/>
-                        <label className="form-label" htmlFor="expiredAt">有効期限</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input className="form-control form-control-lg" type="number" id="passCode" name="passCode" required minLength={5} maxLength={5}/>
-                        <label className="form-label" htmlFor="passCode">パスコード</label>
-                    </div>
-                    <button className="btn btn-primary btn-lg mb-3" type="submit" disabled={submitCreateDisabled}>発行する</button>
-                </form>
-                {createMessage}
             </div>
         </>
     )
