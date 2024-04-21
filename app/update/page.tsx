@@ -1,12 +1,13 @@
 'use client'
 import React from 'react';
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useSearchParams } from 'next/navigation'
 
 export default function Update() {
     const [updateMessage, setUpdateMessage] = useState<JSX.Element>(<></>)
     const [submitUpdateDisabled, setSubmitUpdateDisabled] = useState(false)
-    const [serialNumber, setSerialNumber] = useState("")
+    const [serialNumber, setSerialNumber] = useState(useSearchParams().get('sn') ?? '')
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
         const value = Array.from(event.target.value.replace(/[^0-9]/g, ''))
@@ -56,7 +57,7 @@ export default function Update() {
     }
 
     return (
-        <div className="container">
+        <div className="container mt-[30%]">
             <h1>券を利用する</h1>
             <form onSubmit={onSubmitUpdate}>
                 <div className="form-floating mb-3">
