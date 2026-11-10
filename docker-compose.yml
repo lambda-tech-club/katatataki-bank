@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - SALT=${SALT:-local_dev_salt}
+      - KV_URL=redis://redis:6379
+      - KV_REST_API_URL=http://serverless-redis-http:80
+      - KV_REST_API_TOKEN=${KV_REST_API_TOKEN:-local_dev_token}
+      - KV_REST_API_READ_ONLY_TOKEN=${KV_REST_API_TOKEN:-local_dev_token}
+    depends_on:
+      - serverless-redis-http
+
+  # Vercel KV is backed by Redis and spoken to over a REST API. These two
+  # services reproduce that locally: `redis` is the actual data store, and
+  # `serverless-redis-http` exposes the same REST protocol the `@vercel/kv`
+  # client expects, so the app can run without a real Vercel KV instance.
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  serverless-redis-http:
+    image: hiett/serverless-redis-http:latest
+    restart: unless-stopped
+    environment:
+      - SRH_MODE=env
+      - SRH_TOKEN=${KV_REST_API_TOKEN:-local_dev_token}
+      - SRH_CONNECTION_STRING=redis://redis:6379
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:

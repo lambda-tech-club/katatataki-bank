@@ -51,3 +51,13 @@ pnpm dev
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples) ([Documentation](https://nextjs.org/docs/deployment)).
+
+### Run with Docker
+
+This repository also includes a `Dockerfile` and `docker-compose.yml` for running the app without Vercel. `docker-compose.yml` spins up the Next.js app alongside a local Redis instance and [`serverless-redis-http`](https://github.com/hiett/serverless-redis-http), which exposes Redis through the same REST API the `@vercel/kv` client expects:
+
+```bash
+docker compose up --build
+```
+
+The app will be available at `http://localhost:3000`.
